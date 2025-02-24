@@ -1,0 +1,19 @@
+from typing import List
+
+class Solution:
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        if not points:
+            return 0
+        
+        # Step 1: Sort balloons based on their end position (xend)
+        points.sort(key=lambda x: x[1])
+        
+        arrows = 1  # At least one arrow is needed
+        arrow_position = points[0][1]  # First arrow at the end of the first balloon
+        
+        for start, end in points:
+            if start > arrow_position:  # New balloon that cannot be burst by current arrow
+                arrows += 1
+                arrow_position = end  # Update arrow position to current balloon's end
+                
+        return arrows
