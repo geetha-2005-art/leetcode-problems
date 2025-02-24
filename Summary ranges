@@ -1,0 +1,26 @@
+from typing import List
+
+class Solution:
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        res = []
+        n = len(nums)
+        if n == 0:
+            return res  # Handle empty input case
+        
+        start = 0  # Start index of the range
+        
+        for i in range(n - 1):  # Iterate until the second last element
+            if nums[i + 1] != nums[i] + 1:  # If not consecutive
+                if start == i:
+                    res.append(str(nums[i]))  # Single element range
+                else:
+                    res.append(str(nums[start]) + "->" + str(nums[i]))  # Range from start to i
+                start = i + 1  # Move start to the next range
+        
+        # Handle the last range
+        if start == n - 1:
+            res.append(str(nums[start]))
+        else:
+            res.append(str(nums[start]) + "->" + str(nums[n - 1]))
+        
+        return res
