@@ -1,0 +1,17 @@
+from collections import Counter
+from itertools import chain
+from typing import List
+
+class Solution:
+    def findMissingAndRepeatedValues(self, grid: List[List[int]]) -> List[int]:
+        n = len(grid)
+        total_numbers = n * n
+        flat_grid = list(chain(*grid))
+        count = Counter(flat_grid)
+        repeating = missing = -1
+        for num in range(1, total_numbers + 1):
+            if count[num] == 2:
+                repeating = num
+            elif count[num] == 0:
+                missing = num
+        return [repeating, missing]
